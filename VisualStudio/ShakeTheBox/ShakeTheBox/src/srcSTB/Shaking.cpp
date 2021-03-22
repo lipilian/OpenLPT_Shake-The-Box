@@ -56,7 +56,8 @@ Shaking::Shaking(int Ncams, int ignoredCam, OTF& otfcalib, int NpixW, int NpixH,
 					for (int x = pRangeOld[id].xmin2; x < pRangeOld[id].xmax2; x++) {
 						for (int y = pRangeOld[id].ymin2; y < pRangeOld[id].ymax2; y++) {
 					int X = x - pRangeOld[id].xmin2; int Y = y - pRangeOld[id].ymin2;
-					pixels_Part[id][Y][X] = round(PartReproj(pos2Dold[id], otfParamold, x, y));
+					//pixels_Part[id][Y][X] = round(PartReproj(pos2Dold[id], otfParamold, x, y));
+					pixels_Part[id][Y][X] = round(PartReproj(pos2Dold[id], pos3Dold.R(), x, y));
 				}
 			}
 			id++;
@@ -262,6 +263,13 @@ double Shaking::PartReproj(Position particle2Dcenter, vector <double>& otfParam,
 	double xx = ((double)x - particle2Dcenter.X())*cos(otfParam[3]) + ((double)y - particle2Dcenter.Y())*sin(otfParam[3]);
 	double yy = -((double)x - particle2Dcenter.X())*sin(otfParam[3]) + ((double)y - particle2Dcenter.Y())*cos(otfParam[3]);
 	double value = otfParam[0] * exp(-(otfParam[1] * pow(xx, 2) + otfParam[2] * pow(yy, 2)));
+	return(value);
+}
+
+double Shaking::PartReproj(Position& particle2Dcenter, double radius, int x, int y) {
+	double xx = (double)x - particle2Dcenter.X();
+	double yy = (double)y - particle2Dcenter.Y();
+	double value = 255 * exp(-(pow(xx, 2) + pow(yy, 2)) / pow(radius, 2));
 	return(value);
 }
 

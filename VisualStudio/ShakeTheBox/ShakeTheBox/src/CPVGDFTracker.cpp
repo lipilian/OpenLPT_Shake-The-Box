@@ -34,7 +34,7 @@
 using namespace std;
 
 #ifdef WINDOWS
-	const char* version = "W2.1.021921"; //Version of this project
+	const char* version = "W3.1.032221"; //Version of this project
 #else
 	const char* version = "L2.1.041619"; //Version of this project
 #endif

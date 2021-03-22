@@ -7,6 +7,7 @@
 #include <Tiffload.h>
 #include <Tiff2DFinder.h>
 #include <ParticleFinder.h>
+#include "BubbleIdentifier.h"
 
 using namespace std;
 
@@ -70,6 +71,10 @@ void Tiff2DFinder::Particle2DList(deque<int**>& pixels, deque<Frame>& iframes) t
 			ParticleFinder p(pixels[camID], Npixh, Npixw);//, colors, threshold);
 			p.GetParticle2DCenter(colors, threshold);
 			iframes.push_back(p.CreateFrame());
+			//BubbleIdentifier bp(pixels[camID], Npixh, Npixw, threshold);
+			//bp.BubbleCenterAndSize();
+			//iframes.push_back(bp.CreateFrame());
+
 		}
 		catch (out_of_range& e) {
 			cerr << e.what() << endl;

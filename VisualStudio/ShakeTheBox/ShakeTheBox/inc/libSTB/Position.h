@@ -22,6 +22,7 @@ public:
   Position() {};
   // constructor: initializes the coordinates
   Position(double NewX, double NewY, double NewZ);
+  Position(double NewX, double NewY, double NewZ, double r);
   Position(double NewX, double NewY, double NewZ, double Newx1, double Newy1, double Newx2, double Newy2, double Newx3, double Newy3, double Newx4, double Newy4, double Newinfo);
   // copy-constructor
   Position(const Position& p);
@@ -44,6 +45,7 @@ public:
   double Y() const;
 	// get z component
   double Z() const;
+  double R() const;
   
   // set x component
   void Set_X(double a);
@@ -55,6 +57,7 @@ public:
   void Set_info(double a);
   // if the belongs to track, set the type of track
   void Set_trackType(int a);
+  void Set_R(double r) { radius = r; };
 
   double X1() const;
   double Y1() const;
@@ -123,6 +126,7 @@ private:
   double x4;
   double y4;
   double info;
+  double radius; //radius of the particles
   // a flag specifying whether this position is a part of a track already
   bool tracked;  
   // set track type (0->Inactive/Not a part of track, 1->ShortActiveTrack, 2->LongActvieTrack, 3->ExitTrack, 4->LongActiveNewTrack)
@@ -138,12 +142,16 @@ inline Position::Position(double NewX, double NewY, double NewZ)
 : x(NewX), y(NewY), z(NewZ), tracked(false), fake(false)
 {}
 
+inline Position::Position(double NewX, double NewY, double NewZ, double r) :
+	x(NewX), y(NewY), z(NewZ), tracked(false), fake(false), radius(r)
+{}
+
 inline Position::Position(double NewX, double NewY, double NewZ, double Newx1, double Newy1, double Newx2, double Newy2, double Newx3, double Newy3, double Newx4, double Newy4, double Newinfo) 
 : x(NewX), y(NewY), z(NewZ), x1(Newx1), y1(Newy1), x2(Newx2), y2(Newy2), x3(Newx3), y3(Newy3), x4(Newx4), y4(Newy4), info(Newinfo), tracked(false), fake(false)
 {}
 
-inline Position::Position(const Position& p) 
-: x(p.x), y(p.y), z(p.z), x1(p.x1), y1(p.y1), x2(p.x2), y2(p.y2), x3(p.x3), y3(p.y3), x4(p.x4), y4(p.y4), info(p.info), tracked(p.tracked), fake(p.fake)
+inline Position::Position(const Position& p)
+	: x(p.x), y(p.y), z(p.z), x1(p.x1), y1(p.y1), x2(p.x2), y2(p.y2), x3(p.x3), y3(p.y3), x4(p.x4), y4(p.y4), info(p.info), tracked(p.tracked), fake(p.fake), radius(p.R())
 {}
 
 inline void Position::SetTracked()
@@ -189,6 +197,11 @@ inline double Position::Y() const
 inline double Position::Z() const
 {
 	return z;
+}
+
+inline double Position::R() const
+{
+	return radius;
 }
 
 inline void Position::Set_X(double a) 

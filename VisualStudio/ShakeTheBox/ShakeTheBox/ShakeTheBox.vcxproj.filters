@@ -34,6 +34,9 @@
     <Filter Include="Source Files\srcSTB">
       <UniqueIdentifier>{cab03db6-2d4b-429b-87cb-7c5ce5211443}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\libSTB\BubbleCenterAndSize">
+      <UniqueIdentifier>{a1aacbb2-ce80-4d9c-a831-b4785bff8138}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="inc\libtiff\tif_aux.c">
@@ -222,6 +225,15 @@
     <ClCompile Include="src\CPVGDFTracker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleIdentifier.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\bwconncomp.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\regionprops.cpp">
+      <Filter>Source Files\srcSTB</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\DataIO\DataIO.h">
@@ -343,6 +355,27 @@
     </ClInclude>
     <ClInclude Include="inc\libSTB\STBCommon.h">
       <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleIdentifier.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSize\BubbleCenterAndSize.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSize</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSize\BubbleCenterAndSize_types.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSize</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSize\bwconncomp.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSize</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSize\coder_array.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSize</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSize\regionprops.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSize</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSize\rtwtypes.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSize</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

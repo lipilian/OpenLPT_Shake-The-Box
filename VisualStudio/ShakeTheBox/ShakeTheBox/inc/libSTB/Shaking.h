@@ -47,6 +47,7 @@ public:
 	pair< deque<Shaking::PixelRange>, deque<Position> > PixRange(Position pos);
 	// gives the intensity of reprojection at (x,y): (I_p(x,y))
 	double PartReproj(Position particle2Dcenter, vector<double>& otfParam, int x, int y);
+	double PartReproj(Position& particle2Dcenter, double radius, int x, int y);
 	// Particle Augemented Residual Matrix: (I_res+p)
 	void PartAugResImage(int camID, int id, PixelRange p);
 	// gives the residual of updated 3D position: R

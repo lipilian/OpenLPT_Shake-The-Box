@@ -278,8 +278,11 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 			 * Start:
 			 */
 //			corrpos.push_back(cams[i].UnDistort(*fit));
-			corrpos.push_back(cams[camID[i]].UnDistort(*fit));
+			//corrpos.push_back(cams[camID[i]].UnDistort(*fit));
 			// End
+			Position pos_mm = cams[camID[i]].UnDistort(*fit);
+			pos_mm.Set_R((*fit).R()); // pass the radius information
+			corrpos.push_back(pos_mm);
 			corrpos_Pixel.push_back(*fit);
 			//n = n + 1;
 		}
@@ -929,10 +932,12 @@ pair<double,Position> Calibration::WorldPosition(deque<Position> ipos, int ignor
 
 	//Position sight[ncams];
     Position sight[20];
+	deque<double> radii;
 
 	for (int i = 0; i < rcams; ++i) {
 		// construct a line of sight for this point:
 		// vector from camera center to this point (in world coordinates)
+		radii.push_back(ipos[i].R());
 		sight[i] = cams[camID[i]].ImageToWorld(ipos[i]) - cams[camID[i]].Center();
 		// normalize
 		sight[i] /= sight[i].Magnitude();
@@ -992,6 +997,16 @@ pair<double,Position> Calibration::WorldPosition(deque<Position> ipos, int ignor
 		}
 	}
 	Position worldposi(tmpi.X(), tmpi.Y(), tmpi.Z(), pos2D[0][0], pos2D[0][1], pos2D[1][0], pos2D[1][1], pos2D[2][0], pos2D[2][1], pos2D[3][0], pos2D[3][1], dist);
+
+	// get the average radius
+	double r = 0;
+	for (int i = 0; i < radii.size(); i++) {
+		r = r + radii[i];
+	}
+	r = r / radii.size();
+	worldposi.Set_R(r); 
+
+
 	return make_pair(dist, worldposi);	
 }
 

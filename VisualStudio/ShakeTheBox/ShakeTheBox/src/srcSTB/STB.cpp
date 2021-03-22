@@ -851,6 +851,7 @@ void STB::Prediction(int frame, Frame& estPos, deque<double>& estInt) {
 			}
 		}
 		Position estimate(est[0], est[1], est[2]);												// estimated position at nextFrame
+		estimate.Set_R((*tr).Last().R()); //Pass the radius to the prediction
 		if (boundary_check.Check(estimate)) { // if the estimate particle is inside the boundary
 			estInt.push_back(1);																	// setting initial intensity to 1
 			estPos.Add(estimate);
@@ -1017,6 +1018,7 @@ double STB::LMSWienerPredictor(Track tracks, string direction, int order) {
 	if (shift_label) {
 		prediction = prediction - shift;
 	}
+
 	delete[] series;
 	delete[] filter_param;
 	return prediction;
@@ -1044,7 +1046,7 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 			else if (loopInner < 5)  del = config.shaking_shift / pow(2,loopInner - 1);
 			else  del = config.shaking_shift / 20;
 
-			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, STBflag);
+			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 4, STBflag); // projection size: particle size, projection range: twice particle size
 //			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 0.5);					// adding the estimated particles to the reprojected image
 
 			for (int n = 0; n < ncams; n++) 												// updating the residual image by removing the estimates
@@ -1080,7 +1082,8 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 			for (int i = 0; i < estimate.NumParticles(); ++i) {
 				Frame::const_iterator pID = estimate.begin() + i;
 				OTF otf_calib(OTFcalib);
-				Shaking s(ncams, ignoreCam[i], otf_calib, Npixw, Npixh, _ipr.psize, del, *pID, cams, pixels_res, intensity[i]);
+				//Shaking s(ncams, ignoreCam[i], otf_calib, Npixw, Npixh, _ipr.psize, del, *pID, cams, pixels_res, intensity[i]);
+				Shaking s(ncams, ignoreCam[i], otf_calib, Npixw, Npixh, (*pID).R() * 2, del, *pID, cams, pixels_res, intensity[i]);
 				estimate[i] = s.Get_posnew();
 				intensity[i] = s.Get_int();
 //				index++;
@@ -1096,7 +1099,8 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 
 		Rem(estimate, intensity, _ipr.mindist_3D);											// removing ambiguous particles and particles that did not find a match on the actual images
 
-		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, STBflag);						// updating the reprojected image
+		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 8, STBflag);						// updating the reprojected image
+																					// remove particle by projecting twice particle size
 //		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 1.5);
 
 		for (int n = 0; n < ncams; n++) 													// updating the residual image

@@ -117,7 +117,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\inc\libtiff;$(ProjectDir)\inc\libSTB;$(ProjectDir)\inc\libMath;$(ProjectDir)\inc\DataIO</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\inc\libtiff;$(ProjectDir)\inc\libSTB;$(ProjectDir)\inc\libMath;$(ProjectDir)\inc\DataIO;$(ProjectDir)\inc\libSTB\BubbleCenterAndSize</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
     </ClCompile>
@@ -134,7 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\inc\libtiff;$(ProjectDir)\inc\libSTB;$(ProjectDir)\inc\libMath;$(ProjectDir)\inc\DataIO</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\inc\libtiff;$(ProjectDir)\inc\libSTB;$(ProjectDir)\inc\libMath;$(ProjectDir)\inc\DataIO;$(ProjectDir)\inc\libSTB\BubbleCenterAndSize</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
@@ -192,6 +192,8 @@
     <ClCompile Include="src\srcMath\Matrix.cpp" />
     <ClCompile Include="src\srcSTB\BackSTB.cpp" />
     <ClCompile Include="src\srcSTB\BoundaryCheck.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleIdentifier.cpp" />
+    <ClCompile Include="src\srcSTB\bwconncomp.cpp" />
     <ClCompile Include="src\srcSTB\Calibration.cpp" />
     <ClCompile Include="src\srcSTB\Camera.cpp" />
     <ClCompile Include="src\srcSTB\ForwardSTB.cpp" />
@@ -202,6 +204,7 @@
     <ClCompile Include="src\srcSTB\ParticleFinder.cpp" />
     <ClCompile Include="src\srcSTB\Position.cpp" />
     <ClCompile Include="src\srcSTB\PredictiveField.cpp" />
+    <ClCompile Include="src\srcSTB\regionprops.cpp" />
     <ClCompile Include="src\srcSTB\Shaking.cpp" />
     <ClCompile Include="src\srcSTB\STB.cpp" />
     <ClCompile Include="src\srcSTB\Tiff2DFinder.cpp" />
@@ -219,6 +222,13 @@
     <ClInclude Include="inc\libMath\MergeSort.h" />
     <ClInclude Include="inc\libSTB\BackSTB.h" />
     <ClInclude Include="inc\libSTB\BoundaryCheck.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSize\BubbleCenterAndSize.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSize\BubbleCenterAndSize_types.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSize\bwconncomp.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSize\coder_array.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSize\regionprops.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSize\rtwtypes.h" />
+    <ClInclude Include="inc\libSTB\BubbleIdentifier.h" />
     <ClInclude Include="inc\libSTB\Calibration.h" />
     <ClInclude Include="inc\libSTB\Camera.h" />
     <ClInclude Include="inc\libSTB\STBCommon.h" />
