@@ -11,6 +11,7 @@
 #include "IPR.h"
 #include "STBCommon.h"
 #include "BubbleIdentifier.h"
+#include "CircleIdentifier.h"
 
 using namespace std;
 #define ALL_CAMS 100
@@ -163,8 +164,11 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 			try {
 				//ParticleFinder p(pixels_orig[camID], Npixh, Npixw);//, t.Get_colors(), threshold);
 				// Get the 2D center for bubbles.
-				BubbleIdentifier bp(pixels_orig[camID], Npixh, Npixw, threshold);
-				bp.BubbleCenterAndSize();
+				//BubbleIdentifier bp(pixels_orig[camID], Npixh, Npixw, 100); //threshold
+				//bp.BubbleCenterAndSize();
+				//iframes.push_back(bp.CreateFrame());
+				CircleIdentifier bp(pixels_orig[camID], Npixh, Npixw, 100);
+				bp.BubbleCenterAndSizeByCircle(3, 15);
 				iframes.push_back(bp.CreateFrame());
 				//bp.SaveCenter(imgNames[camID][frame - 1]);
 				//bp.SaveRadius(imgNames[camID][frame - 1]);
@@ -323,8 +327,12 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 				//p.GetParticle2DCenter(colors, threshold);
 				//iframes.push_back(p.CreateFrame());
 
-				BubbleIdentifier bp(orig[camNums[camID]], Npixh, Npixw, threshold);
-				bp.BubbleCenterAndSize();
+				//BubbleIdentifier bp(orig[camNums[camID]], Npixh, Npixw, 100); // threshold);
+				//bp.BubbleCenterAndSize();
+				//iframes.push_back(bp.CreateFrame());
+				
+				CircleIdentifier bp(pixels_orig[camID], Npixh, Npixw, 100);
+				bp.BubbleCenterAndSizeByCircle(3, 15);
 				iframes.push_back(bp.CreateFrame());
 				//p.SaveParticle2DCenter("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/frame100_" + to_string(camID) + ".txt");
 			}
